@@ -1,40 +1,586 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cyber-Aventure 2.0 — Apprendre l'informatique avec Mr Rehoboth</title>
+  <title>Cyber-Aventure 2.0 — Formation bureautique & informatique avec Mr Rehoboth</title>
   <style>
-    :root{--bg1:#0f172a;--card:#ffffff;--accent1:#6ee7b7;--accent2:#60a5fa;--muted:#94a3b8}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:"Verdana","Segoe UI",sans-serif;background:linear-gradient(135deg,#0f172a 0%,#111827 60%);color:#0b1220}
-    .app{max-width:980px;margin:20px auto;padding:18px}
-    .card{background:var(--card);border-radius:14px;padding:18px;box-shadow:0 10px 30px rgba(2,6,23,0.45)}
-    header.top{display:flex;gap:18px;align-items:center;margin-bottom:14px}
-    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-size:34px}
-    h1{margin:0;font-size:1.35rem}
-    p.lead{margin:4px 0 0;color:var(--muted)}/* Welcome screen */
-.welcome{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:center}
-.welcome .info{padding:12px}
-.levels{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.level-btn{padding:10px 14px;border-radius:10px;border:none;background:#f1f5f9;cursor:pointer;font-weight:600}
-.start-row{display:flex;gap:10px;margin-top:14px}
-.btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-.btn.primary{background:linear-gradient(90deg,var(--accent2),#7c3aed);color:white}
-.btn.ghost{background:transparent;border:2px solid rgba(15,23,42,0.06)}
+    :root {
+      --bg1: #0f172a;
+      --card: #ffffff;
+      --accent1: #6ee7b7;
+      --accent2: #60a5fa;
+      --muted: #94a3b8;
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html, body {
+      height: 100%;
+      font-family: "Segoe UI", "Verdana", sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #111827 60%);
+      color: #0b1220;
+    }
+    
+    .app {
+      max-width: 980px;
+      margin: 20px auto;
+      padding: 18px;
+    }
+    
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.45);
+    }
+    
+    header.top {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent2), #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 34px;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    
+    p.lead {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
 
-/* Game */
-.meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
-.chip{background:#eef2ff;padding:8px 12px;border-radius:999px;font-weight:700}
+    /* Welcome screen */
+    .welcome {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 24px;
+      align-items: start;
+    }
+    
+    .welcome .info {
+      padding: 8px;
+    }
+    
+    .levels {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    
+    .level-btn {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: none;
+      background: #f1f5f9;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    
+    .level-btn:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+    
+    .level-btn.active {
+      background: linear-gradient(90deg, var(--accent2), #7c3aed);
+      color: white;
+    }
+    
+    .start-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent2), #7c3aed);
+      color: white;
+    }
+    
+    .btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+    }
+    
+    .btn.ghost {
+      background: transparent;
+      border: 2px solid rgba(15, 23, 42, 0.1);
+    }
+    
+    .btn.ghost:hover {
+      background: #f8fafc;
+    }
+    
+    .btn.cta {
+      background: linear-gradient(90deg, #dc2626, #ea580c);
+      color: white;
+    }
+    
+    .btn.cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+    }
 
-.progress{height:12px;background:#e6edf7;border-radius:999px;overflow:hidden;margin-top:12px}
-.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent1));width:0}
+    /* Game */
+    .meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    
+    .chip {
+      background: #eef2ff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
 
-.question-card{margin-top:18px;padding:16px;border-radius:12px;background:linear-gradient(180deg,#ffffff, #fbfdff)}
-.question-text{font-weight:800;font-size:1.05rem;margin-bottom:12px}
-.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-.opt{background:#f8fafc;border-radius:10px;padding:10px;border:2px solid transparent;cursor:pointer;font-weight:700}
-.opt:hover{transform:translateY(-3px);transition:all .18s}
-.opt.disabled{opacity:.6;cursor:not-allowed}
+    .progress {
+      height: 12px;
+      background: #e6edf7;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+    
+    .progress > i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      width: 0;
+      transition: width 0.3s ease;
+    }
+
+    .question-card {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .question-text {
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    
+    .opt {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 16px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    
+    .opt:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .opt:focus {
+      outline: 2px solid var(--accent2);
+      outline-offset: 2px;
+    }
+    
+    .opt.disabled {
+      opacity: .7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .opt.correct {
+      background: #dcfce7;
+      border-color: #34d399;
+    }
+    
+    .opt.incorrect {
+      background: #fee2e2;
+      border-color: #f87171;
+    }
+
+    .feedback {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    
+    .fb-correct {
+      background: #ecfdf5;
+      border: 2px solid #34d399;
+      color: #065f46;
+    }
+    
+    .fb-wrong {
+      background: #fff1f2;
+      border: 2px solid #fb7185;
+      color: #7f1d1d;
+    }
+
+    footer.controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* Final */
+    .final {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      padding: 24px;
+      text-align: center;
+    }
+    
+    .leaderboard {
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px dashed #e6eef8;
+    }
+    
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+    }
+
+    /* Marketing sections */
+    .cta-section {
+      padding: 20px;
+      border-radius: 12px;
+      margin: 24px 0;
+    }
+    
+    .formations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+    
+    .formation-card {
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    
+    .testimonial {
+      font-style: italic;
+      margin: 8px 0;
+      font-size: 0.9rem;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-align: right;
+    }
+
+    @media (max-width: 840px) {
+      .welcome {
+        grid-template-columns: 1fr;
+      }
+      
+      .logo {
+        width: 64px;
+        height: 64px;
+      }
+      
+      .formations-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .start-row {
+        flex-direction: column;
+      }
+      
+      .options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app card" id="app">
+    <header class="top">
+      <div class="logo">💻</div>
+      <div>
+        <h1>Cyber-Aventure 2.0</h1>
+        <p class="lead">Formation bureautique & informatique avec <strong>Mr Rehoboth</strong> — De débutant à expert</p>
+      </div>
+    </header>
+
+    <!-- WELCOME / MENU -->
+    <section id="welcome" class="card welcome">
+      <div class="info">
+        <h2>Bienvenue, aventurier·ère du numérique 🎯</h2>
+        <p>Testez vos compétences et découvrez nos formations en bureautique et informatique. Le jeu sauvegarde tes meilleurs scores localement.</p>
+
+        <div class="levels">
+          <button class="level-btn active" data-level="beginner">Débutant</button>
+          <button class="level-btn" data-level="intermediate">Intermédiaire</button>
+          <button class="level-btn" data-level="expert">Expert</button>
+          <button class="level-btn" data-level="random">Aléatoire</button>
+        </div>
+
+        <div class="start-row">
+          <button id="start-btn" class="btn primary">Commencer le jeu</button>
+          <button id="how-btn" class="btn ghost">Comment jouer</button>
+        </div>
+
+        <!-- Section Formations -->
+        <div class="cta-section" style="background:#f8fafc">
+          <h4 style="margin:0 0 12px 0">📚 Nos Services Mr Rehoboth</h4>
+          <div class="formations-grid">
+            <div class="formation-card">
+              <strong> Assistance Bureautique Complète</strong><br>
+✅ Saisie de données (Word et Excel) rapide et fiable.<br>
+✅ Création et mise en forme professionnelle de documents Word.<br>
+✅ Création de fichiers PDF (conversion, sécurisation).<br>
+✅ Conception de présentations PowerPoint impactantes.<br>
+✅ Rédaction de mémoire, exposer 
+            </div>
+            <div class="formation-card">
+              <strong>Formations Bureautiques & Internet (Initiation / Bases) </strong><br>
+✅​ Formation  Word (Basique, Intermédiaire, Avancée).<br>
+​✅ Formation Excel (Basique, Intermédiaire, Avancée).<br>
+​✅ Formation PowerPoint (Basique, Intermédiaire, Avancée).<br>
+✅ ​Formation aux bases d'Internet et à l'organisation numérique.<br>
+            </div>
+            <div class="formation-card">
+              <strong>Services Techniques & Matériel</strong><br>
+​✅ Vente et conseil en matériel informatique (ordinateurs, périphériques).<br>
+✅​ Installation et configuration de logiciels (bureautique, antivirus, système d'exploitation).<br>
+​✅ Maintenance et dépannage informatique (logiciel et matériel).<br>
+✅​ Câblage informatique et optimisation de réseau.<br>
+
+
+            </div>
+            <div class="formation-card">
+              <strong>☎️ Contact & Réseaux</strong><br><br>
+📞01 03 73 00 14 (appel direct et whatsapp)<br>
+🌐facebook.com/mrrehoboth<br>
+📍 Intervention à distance ou sur site<br>
+⛔ <strong>Offre d'équipe disponible</strong><br>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Principal -->
+        <div class="cta-section" style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe); border-left:4px solid var(--accent2)">
+          <h4 style="margin:0 0 8px 0">🚀 Prêt pour une vraie formation ?</h4>
+          <p style="margin:0 0 16px 0; font-size:0.95rem">Rejoignez nos formations certifiantes en bureautique et informatique</p>
+<button id="inscription-btn" class="btn cta" onclick="window.open('https://forms.gle/1GgkV43ps89ha13F9', '_blank')">
+  S'inscrire à une formation
+</button>
+        </div>
+
+        <div style="margin-top:16px;color:var(--muted);font-size:.92rem">Options : Sons activés &nbsp;•&nbsp; Sauvegarde activée</div>
+      </div>
+
+      <div>
+        <div style="padding:16px;background:linear-gradient(180deg,#eef2ff,#f8fbff);border-radius:12px">
+          <h3 style="margin:0 0 10px">Statistiques rapides</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="chip">Meilleur (Débutant): <strong id="best-beginner">—</strong></div>
+            <div class="chip">Meilleur (Interm): <strong id="best-inter">—</strong></div>
+            <div class="chip">Meilleur (Expert): <strong id="best-expert">—</strong></div>
+          </div>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:12px">Astuce : testez vos compétences puis inscrivez-vous pour les perfectionner !</p>
+        </div>
+
+        <!-- Témoignages -->
+        <div style="margin-top:20px; padding:16px; background:#f0fdf4; border-radius:12px; border:1px solid #bbf7d0">
+          <h4 style="margin:0 0 12px 0">💬 Témoignages</h4>
+          <div style="font-size:0.9rem">
+            <p class="testimonial">"Formation Excel exceptionnelle ! J'ai doublé ma productivité au travail."</p>
+            <p class="testimonial-author">- Franck L., Comptable</p>
+            
+            <p class="testimonial" style="margin-top:12px">"Mr Rehoboth rend l'informatique accessible à tous. Pédagogie remarquable !"</p>
+            <p class="testimonial-author">- Christophe L., Chef de projet</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME AREA (hidden initially) -->
+    <section id="game" class="card" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:1rem;">Score: <strong id="score">0</strong></div>
+          <div style="font-size:.9rem;color:var(--muted)">Niveau: <strong id="current-level">—</strong></div>
+        </div>
+
+        <div class="meta">
+          <div class="chip">Question: <span id="qnum">0</span>/<span id="total">0</span></div>
+          <div class="chip">Progression</div>
+        </div>
+      </div>
+
+      <div class="progress" aria-hidden="true" style="margin-top:16px">
+        <i id="bar"></i>
+      </div>
+
+      <div class="question-card" id="question-card">
+        <div class="question-text" id="question-text">Question…</div>
+        <div class="options" id="options"></div>
+
+        <div id="feedback" style="display:none" class="feedback"></div>
+
+        <footer class="controls">
+          <button id="next" class="btn primary" style="display:none">Question suivante</button>
+          <button id="quit" class="btn ghost">Quitter</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section id="final" class="card" style="display:none">
+      <div class="final">
+        <div style="font-size:4rem" id="final-emoji">🎉</div>
+        <h2 id="final-title">Bravo !</h2>
+        <p id="final-msg">Tu as terminé le quiz.</p>
+        <div style="font-size:1.3rem; margin: 10px 0">Ton score : <strong id="final-score">0</strong> / <span id="final-total">0</span></div>
+        
+        <!-- CTA Certification -->
+        <div id="certification-cta" style="display:none; margin-top:20px; padding:20px; background:#f0fdf4; border-radius:10px; border:2px solid #bbf7d0; max-width:500px; width:100%">
+          <h4 style="margin:0 0 12px 0; text-align:center">💼 Certification Mr Rehoboth</h4>
+          <p style="margin:0 0 16px 0; font-size:0.95rem; text-align:center">Obtenez une certification reconnue en bureautique et informatique</p>
+          <div style="display:flex; gap:10px; justify-content:center">
+            <button id="certification-btn" class="btn primary">Découvrir les certifications</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:20px; flex-wrap: wrap; justify-content: center;">
+          <button id="replay" class="btn primary">Rejouer même niveau</button>
+          <button id="to-menu" class="btn ghost">Retour au menu</button>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div style="margin-top:24px; text-align:center">
+          <p style="font-size:0.95rem; color:var(--muted)">Suivez Mr Rehoboth pour plus de contenu :</p>
+          <div class="social-links">
+            <button id="facebook-btn" class="btn ghost" style="padding:8px 16px">📘 Facebook : Mr Rehoboth</button>
+            <button id="linkedin-btn" class="btn ghost" style="padding:8px 16px">💼 LinkedIn : Mr Rehoboth</button>
+            <button id="website-btn" class="btn ghost" style="padding:8px 16px">🌐 Site Web</button>
+            <button id="tiktok-btn" class="btn ghost" style="padding:8px 16px">📘 Tiktok : Mr Rehoboth</button>
+          </div>
+        </div>
+
+        <div class="leaderboard card" style="width:100%;max-width:640px;margin-top:20px">
+          <h3 style="margin:12px 0">Meilleurs scores (local)</h3>
+          <table>
+            <thead><tr><th>Niveau</th><th>Score</th><th>Date</th></tr></thead>
+            <tbody id="leaderboard-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Questions database - 20 questions per level
+    const POOLS = {
+      beginner: [
+        {q:"Qu'est-ce qu'un ordinateur ?", opts:["Une machine qui calcule et traite des informations","Un jouet","Un livre","Une voiture"], a:0},
+        {q:"Que signifie 'cliquer' ?", opts:["Faire du bruit","Appuyer sur un bouton de la souris","Bouger la souris","Éteindre l'ordinateur"], a:1},
+        {q:"Qu'est-ce qu'Internet ?", opts:["Un magasin","Un réseau qui connecte les ordinateurs du monde entier","Un jeu","Un livre"], a:1},
+        {q:"Que fait un clavier ?", opts:["Il joue de la musique","Il permet d'écrire des lettres et des chiffres","Il dessine","Il cuisine"], a:1},
+        {q:"Qu'est-ce qu'un fichier ?", opts:["Un animal","Un endroit où on range des informations","Un jouet","Un fruit"], a:1},
+        {q:"Que signifie 'sauvegarder' ?", opts:["Aider quelqu'un","Enregistrer son travail","Courir vite","Manger"], a:1},
+        {q:"Qu'est-ce qu'un mot de passe ?", opts:["Un mot magique","Un code secret","Un jeu de mots","Une chanson"], a:1},
+        {q:"Que fait un écran ?", opts:["Il mange","Il montre les images et les textes","Il vole","Il nage"], a:1},
+        {q:"Comment s'appelle le 'cerveau' de l'ordinateur ?", opts:["L'écran","Le processeur (CPU)","Le clavier","La souris"], a:1},
+        {q:"Que signifie 'imprimer' ?", opts:["Crier fort","Produire une copie papier d'un document","Dessiner à la main","Photographier"], a:1},
+        {q:"Qu'est-ce qu'une icône ?", opts:["Une image religieuse","Une petite image qui représente un programme ou un fichier","Un type de police","Un virus"], a:1},
+        {q:"Comment s'appelle le programme pour naviguer sur Internet ?", opts:["Un navigateur","Un conducteur","Un pilote","Un explorateur"], a:0},
+        {q:"Que fait la corbeille ?", opts:["Elle nettoie la maison","Elle stocke les fichiers supprimés","Elle accélère l'ordinateur","Elle imprime"], a:1},
+        {q:"Qu'est-ce qu'un dossier ?", opts:["Un objet en papier","Un conteneur pour ranger des fichiers","Un type de meuble","Un vêtement"], a:1},
+        {q:"Comment appelle-t-on le fait de redémarrer l'ordinateur ?", opts:["Le recycler","Le réinitialiser","Le redémarrer","Le réparer"], a:2},
+        {q:"Que signifie 'glisser-déposer' ?", opts:["Nettoyer l'écran","Déplacer un élément en maintenant le bouton de la souris","Jeter quelque chose","Dessiner"], a:1},
+        {q:"Qu'est-ce qu'un email ?", opts:["Un courrier postal","Un message électronique","Un appel téléphonique","Une vidéo"], a:1},
+        {q:"Comment s'appelle la barre en bas de l'écran Windows ?", opts:["Barre des tâches","Barre de menu","Barre de titre","Barre d'outils"], a:0},
+        {q:"Que fait le bouton 'Annuler' ?", opts:["Efface tout","Annule la dernière action","Ferme le programme","Imprime"], a:1},
+        {q:"Qu'est-ce qu'un logiciel ?", opts:["Un vêtement confortable","Un programme informatique","Un type de meuble","Un outil physique"], a:1}
+      ],
+
+      intermediate: [
+        {q:"Quelle est la différence entre 'sauvegarder' et 'synchroniser' ?", opts:["Aucune","Sauvegarder enregistre localement, synchroniser met à jour sur plusieurs appareils","Synchroniser supprime les données","Sauvegarder partage automatiquement"], a:1},
+        {q:"Que signifie 'navigateur' ?", opts:["Un type de souris","Un logiciel pour consulter Internet","Une clé USB","Un antivirus"], a:1},
+        {q:"Que fait un antivirus ?", opts:["Ralentit l'ordinateur","Protège contre les logiciels malveillants","Supprime les photos","Désinstalle des programmes"], a:1},
+        {q:"Qu'est-ce qu'un cookie (informatique) ?", opts:["Un biscuit","Un petit fichier stocké par un site web","Un virus","Un composant matériel"], a:1},
+        {q:"Quel format est utilisé pour une image compressée sans perte ?", opts:["JPEG","PNG","MP3","EXE"], a:1},
+        {q:"Que fait la touche 'Ctrl + C' ?", opts:["Fermer la fenêtre","Copier la sélection","Coller","Imprimer"], a:1},
+        {q:"Qu'est-ce qu'un réseau Wi‑Fi ?", opts:["Une carte mère","Un réseau sans fil","Un câble","Un logiciel"], a:1},
+        {q:"Quel élément est un périphérique de stockage ?", .opt.disabled{opacity:.6;cursor:not-allowed}
 .opt.correct{background:#dcfce7;border-color:#34d399}
 .opt.incorrect{background:#fee2e2;border-color:#f87171}
 
