@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cyber-Aventure 2.0 — Formation bureautique & informatique avec Mr Rehoboth</title>
+  <title>Cyber-Aventure 2.0 — Apprendre l'informatique avec Mr Rehoboth</title>
   <style>
     :root{--bg1:#0f172a;--card:#ffffff;--accent1:#6ee7b7;--accent2:#60a5fa;--muted:#94a3b8}
     *{box-sizing:border-box}
@@ -13,28 +12,356 @@
     header.top{display:flex;gap:18px;align-items:center;margin-bottom:14px}
     .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-size:34px}
     h1{margin:0;font-size:1.35rem}
-    p.lead{margin:4px 0 0;color:var(--muted)}
+    p.lead{margin:4px 0 0;color:var(--muted)}/* Welcome screen */
+.welcome{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:center}
+.welcome .info{padding:12px}
+.levels{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.level-btn{padding:10px 14px;border-radius:10px;border:none;background:#f1f5f9;cursor:pointer;font-weight:600}
+.start-row{display:flex;gap:10px;margin-top:14px}
+.btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn.primary{background:linear-gradient(90deg,var(--accent2),#7c3aed);color:white}
+.btn.ghost{background:transparent;border:2px solid rgba(15,23,42,0.06)}
 
-    /* Welcome screen */
-    .welcome{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:center}
-    .welcome .info{padding:12px}
-    .levels{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .level-btn{padding:10px 14px;border-radius:10px;border:none;background:#f1f5f9;cursor:pointer;font-weight:600}
-    .start-row{display:flex;gap:10px;margin-top:14px}
-    .btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn.primary{background:linear-gradient(90deg,var(--accent2),#7c3aed);color:white}
-    .btn.ghost{background:transparent;border:2px solid rgba(15,23,42,0.06)}
-    .btn.cta{background:linear-gradient(90deg,#dc2626,#ea580c);color:white}
+/* Game */
+.meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.chip{background:#eef2ff;padding:8px 12px;border-radius:999px;font-weight:700}
 
-    /* Game */
-    .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
-    .chip{background:#eef2ff;padding:8px 12px;border-radius:999px;font-weight:700}
+.progress{height:12px;background:#e6edf7;border-radius:999px;overflow:hidden;margin-top:12px}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent1));width:0}
 
-    .progress{height:12px;background:#e6edf7;border-radius:999px;overflow:hidden;margin-top:12px}
-    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent1));width:0}
+.question-card{margin-top:18px;padding:16px;border-radius:12px;background:linear-gradient(180deg,#ffffff, #fbfdff)}
+.question-text{font-weight:800;font-size:1.05rem;margin-bottom:12px}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.opt{background:#f8fafc;border-radius:10px;padding:10px;border:2px solid transparent;cursor:pointer;font-weight:700}
+.opt:hover{transform:translateY(-3px);transition:all .18s}
+.opt.disabled{opacity:.6;cursor:not-allowed}
+.opt.correct{background:#dcfce7;border-color:#34d399}
+.opt.incorrect{background:#fee2e2;border-color:#f87171}
 
-    .question-card{margin-top:18px;padding:16px;border-radius:12px;background:linear-gradient(180deg,#ffffff, #fbfdff)}
-    .question-text{font-weight:800;font-size:1.05rem;margin-bottom:12px}
+.feedback{margin-top:12px;padding:10px;border-radius:10px;font-weight:700}
+.fb-correct{background:#ecfdf5;border:2px solid #34d399;color:#065f46}
+.fb-wrong{background:#fff1f2;border:2px solid #fb7185;color:#7f1d1d}
+
+footer.controls{display:flex;gap:10px;align-items:center;margin-top:14px}
+
+/* Final */
+.final{display:grid;gap:12px;place-items:center;padding:18px}
+.leaderboard{margin-top:12px;width:100%}
+table{width:100%;border-collapse:collapse}
+th,td{padding:8px;text-align:left;border-bottom:1px dashed #e6eef8}
+
+@media(max-width:840px){
+  .welcome{grid-template-columns:1fr}
+  .logo{width:64px;height:64px}
+}
+
+  </style>
+</head>
+<body>
+  <div class="app card" id="app">
+    <header class="top">
+      <div class="logo">💻</div>
+      <div>
+        <h1>Cyber-Aventure 2.0</h1>
+        <p class="lead">Apprends l'informatique avec Mr Rehoboth — tous niveaux. Choisis un niveau et lance-toi !</p>
+      </div>
+    </header><!-- WELCOME / MENU -->
+<section id="welcome" class="card welcome">
+  <div class="info">
+    <h2>Bienvenue, aventurier·ère du numérique 🎯</h2>
+    <p>Choisis un niveau pour adapter les questions. Le jeu sauvegarde tes meilleurs scores localement.</p>
+
+    <div class="levels">
+      <button class="level-btn" data-level="beginner">Débutant</button>
+      <button class="level-btn" data-level="intermediate">Intermédiaire</button>
+      <button class="level-btn" data-level="expert">Expert</button>
+      <button class="level-btn" data-level="random">Aléatoire</button>
+    </div>
+
+    <div class="start-row">
+      <button id="start-btn" class="btn primary">Commencer le jeu</button>
+      <button id="how-btn" class="btn ghost">Comment jouer</button>
+    </div>
+
+    <div style="margin-top:12px;color:var(--muted);font-size:.92rem">Options : Sons activés &nbsp;•&nbsp; Sauvegarde activée</div>
+  </div>
+
+  <div>
+    <div style="padding:12px;background:linear-gradient(180deg,#eef2ff,#f8fbff);border-radius:12px">
+      <h3 style="margin:0 0 6px">Statistiques rapides</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div class="chip">Meilleur (Débutant): <strong id="best-beginner">—</strong></div>
+        <div class="chip">Meilleur (Interm): <strong id="best-inter">—</strong></div>
+        <div class="chip">Meilleur (Expert): <strong id="best-expert">—</strong></div>
+      </div>
+      <p style="color:var(--muted);font-size:.9rem;margin-top:10px">Astuce : tu peux revenir ici et essayer d'améliorer ton score.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GAME AREA (hidden initially) -->
+<section id="game" class="card" style="display:none">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.95rem;">Score: <strong id="score">0</strong></div>
+      <div style="font-size:.85rem;color:var(--muted)">Niveau: <strong id="current-level">—</strong></div>
+    </div>
+
+    <div class="meta">
+      <div class="chip">Q: <span id="qnum">0</span>/<span id="total">0</span></div>
+      <div class="chip">Progression</div>
+    </div>
+  </div>
+
+  <div class="progress" aria-hidden="true" style="margin-top:12px"><i id="bar"></i></div>
+
+  <div class="question-card" id="question-card">
+    <div class="question-text" id="question-text">Question…</div>
+    <div class="options" id="options"></div>
+
+    <div id="feedback" style="display:none" class="feedback"></div>
+
+    <footer class="controls">
+      <button id="next" class="btn primary" style="display:none">Question suivante</button>
+      <button id="quit" class="btn ghost">Quitter</button>
+    </footer>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section id="final" class="card" style="display:none">
+  <div class="final">
+    <div style="font-size:3rem" id="final-emoji">🎉</div>
+    <h2 id="final-title">Bravo !</h2>
+    <p id="final-msg">Tu as terminé le quiz.</p>
+    <div style="font-size:1.1rem">Ton score : <strong id="final-score">0</strong> / <span id="final-total">0</span></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button id="replay" class="btn primary">Rejouer même niveau</button>
+      <button id="to-menu" class="btn ghost">Retour au menu</button>
+    </div>
+
+    <div class="leaderboard card" style="width:100%;max-width:640px;margin-top:12px">
+      <h3 style="margin:8px 0">Meilleurs scores (local)</h3>
+      <table>
+        <thead><tr><th>Niveau</th><th>Score</th><th>Date</th></tr></thead>
+        <tbody id="leaderboard-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+  </div>  <script>
+    /* ---------- QUESTIONS (trois niveaux) ---------- */
+    const POOLS = {
+      beginner: [
+        {q:"Qu'est-ce qu'un ordinateur ?", opts:["Une machine qui calcule et traite des informations","Un jouet","Un livre","Une voiture"], a:0},
+        {q:"Que signifie 'cliquer' ?", opts:["Faire du bruit","Appuyer sur un bouton de la souris","Bouger la souris","Éteindre l'ordinateur"], a:1},
+        {q:"Qu'est-ce qu'Internet ?", opts:["Un magasin","Un réseau qui connecte les ordinateurs du monde entier","Un jeu","Un livre"], a:1},
+        {q:"Que fait un clavier ?", opts:["Il joue de la musique","Il permet d'écrire des lettres et des chiffres","Il dessine","Il cuisine"], a:1},
+        {q:"Qu'est-ce qu'un fichier ?", opts:["Un animal","Un endroit où on range des informations","Un jouet","Un fruit"], a:1},
+        {q:"Que signifie 'sauvegarder' ?", opts:["Aider quelqu'un","Enregistrer son travail","Courir vite","Manger"], a:1},
+        {q:"Qu'est-ce qu'un mot de passe ?", opts:["Un mot magique","Un code secret","Un jeu de mots","Une chanson"], a:1},
+        {q:"Que fait un écran ?", opts:["Il mange","Il montre les images et les textes","Il vole","Il nage"], a:1}
+      ],
+
+      intermediate: [
+        {q:"Quelle est la différence entre 'sauvegarder' et 'synchroniser' ?", opts:["Aucune","Sauvegarder enregistre localement, synchroniser met à jour sur plusieurs appareils","Synchroniser supprime les données","Sauvegarder partage automatiquement"], a:1},
+        {q:"Que signifie 'navigateur' ?", opts:["Un type de souris","Un logiciel pour consulter Internet","Une clé USB","Un antivirus"], a:1},
+        {q:"Que fait un antivirus ?", opts:["Ralentit l'ordinateur","Protège contre les logiciels malveillants","Supprime les photos","Désinstalle des programmes"], a:1},
+        {q:"Qu'est-ce qu'un cookie (informatique) ?", opts:["Un biscuit","Un petit fichier stocké par un site web","Un virus","Un composant matériel"], a:1},
+        {q:"Quel format est utilisé pour une image compressée sans perte ?", opts:["JPEG","PNG","MP3","EXE"], a:1},
+        {q:"Que fait la touche 'Ctrl + C' ?", opts:["Fermer la fenêtre","Copier la sélection","Coller","Imprimer"], a:1},
+        {q:"Qu'est-ce qu'un réseau Wi‑Fi ?", opts:["Une carte mère","Un réseau sans fil","Un câble","Un logiciel"], a:1},
+        {q:"Quel élément est un périphérique de stockage ?", opts:["Écran","Souris","Clé USB","Haut-parleur"], a:2}
+      ],
+
+      expert: [
+        {q:"Qu'est-ce qu'un 'pare-feu' (firewall) ?", opts:["Un mur physique","Un dispositif réseau filtrant le trafic","Un type de virus","Un navigateur"], a:1},
+        {q:"Que signifie 'open source' ?", opts:["Payant","Code source accessible et modifiable","Privé","Incompatible"], a:1},
+        {q:"Qu'est-ce qu'un 'phishing' ?", opts:["Une attaque de pêche","Une tentative d'obtenir des informations en se faisant passer pour quelqu'un","Un protocole réseau","Un langage de programmation"], a:1},
+        {q:"Que fait une sauvegarde incrémentale ?", opts:["Sauvegarde tout à zéro","Sauvegarde seulement les changements depuis la dernière sauvegarde","Supprime les sauvegardes","Crypte automatiquement"], a:1},
+        {q:"Quel protocole utilise le web sécurisé (HTTPS) ?", opts:["FTP","HTTP sur TLS/SSL","SMTP","POP3"], a:1},
+        {q:"Que signifie 'latence' en réseau ?", opts:["Taille d'un fichier","Délai de transmission des paquets","Vitesse du processeur","Capacité du disque"], a:1},
+        {q:"Quel composant gère l'exécution des programmes ?", opts:["RAM","Carte graphique","Processeur (CPU)","Disque dur"], a:2},
+        {q:"Qu'est-ce qu'une adresse IP ?", opts:["Un identifiant unique d'un appareil sur un réseau","Un mot de passe","Un logiciel","Un réseau"], a:0}
+      ]
+    };
+
+    /* ---------- UTIL & STATE ---------- */
+    let state = {level:'beginner',pool:[],index:0,score:0,total:8,answered:false};
+
+    // UI refs
+    const WELCOME=document.getElementById('welcome');
+    const GAME=document.getElementById('game');
+    const FINAL=document.getElementById('final');
+    const startBtn=document.getElementById('start-btn');
+    const howBtn=document.getElementById('how-btn');
+    const levelBtns=document.querySelectorAll('.level-btn');
+    const qTxt=document.getElementById('question-text');
+    const optsDiv=document.getElementById('options');
+    const scoreEl=document.getElementById('score');
+    const qNum=document.getElementById('qnum');
+    const totalEl=document.getElementById('total');
+    const bar=document.getElementById('bar');
+    const nextBtn=document.getElementById('next');
+    const quitBtn=document.getElementById('quit');
+    const currentLevelEl=document.getElementById('current-level');
+    const feedback=document.getElementById('feedback');
+
+    // final
+    const finalScore=document.getElementById('final-score');
+    const finalTotal=document.getElementById('final-total');
+    const finalTitle=document.getElementById('final-title');
+    const finalMsg=document.getElementById('final-msg');
+    const finalEmoji=document.getElementById('final-emoji');
+    const replayBtn=document.getElementById('replay');
+    const toMenuBtn=document.getElementById('to-menu');
+    const lbBody=document.getElementById('leaderboard-body');
+
+    // stats in welcome
+    const bestBegin=document.getElementById('best-beginner');
+    const bestInter=document.getElementById('best-inter');
+    const bestExpert=document.getElementById('best-expert');
+
+    /* ---------- AUDIO: WebAudio simple tones ---------- */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function tone(freq,duration=0.12){
+      try{
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type='sine';o.frequency.value=freq;g.gain.value=0.08;
+        o.connect(g);g.connect(audioCtx.destination);
+        o.start();
+        setTimeout(()=>{o.stop();}, duration*1000);
+      }catch(e){/* audio bloqué parfois sur mobile */}
+    }
+
+    function playCorrect(){ tone(880,0.12); tone(1320,0.07); }
+    function playWrong(){ tone(220,0.18); }
+
+    /* ---------- STORAGE ---------- */
+    function saveBest(level,score){
+      const key='cyber_best_'+level; const prev = localStorage.getItem(key);
+      if(!prev || score>parseInt(prev)) localStorage.setItem(key,String(score));
+    }
+    function loadBests(){
+      bestBegin.textContent = localStorage.getItem('cyber_best_beginner')||'—';
+      bestInter.textContent = localStorage.getItem('cyber_best_intermediate')||'—';
+      bestExpert.textContent = localStorage.getItem('cyber_best_expert')||'—';
+    }
+
+    function saveToLeaderboard(level,score){
+      const key='cyber_leaderboard';
+      const arr = JSON.parse(localStorage.getItem(key)||'[]');
+      arr.push({level,score,date:new Date().toLocaleString()});
+      // keep only last 20
+      localStorage.setItem(key,JSON.stringify(arr.slice(-20)));
+    }
+    function renderLeaderboard(){
+      const arr = JSON.parse(localStorage.getItem('cyber_leaderboard')||'[]').slice().reverse();
+      lbBody.innerHTML='';
+      arr.forEach(r=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${r.level}</td><td>${r.score}</td><td>${r.date}</td>`; lbBody.appendChild(tr)});
+    }
+
+    /* ---------- GAME FLOW ---------- */
+    function chooseLevel(l){ state.level=l; document.querySelectorAll('.level-btn').forEach(b=>b.style.outline='');
+      document.querySelector(`.level-btn[data-level="${l}"]`).style.outline='3px solid rgba(79,70,229,0.18)';
+    }
+
+    // default level
+    chooseLevel('beginner'); loadBests(); renderLeaderboard();
+
+    levelBtns.forEach(b=>b.addEventListener('click',()=>{ chooseLevel(b.dataset.level); }));
+
+    howBtn.addEventListener('click',()=>{
+      alert('Règles : Choisis le niveau, puis réponds aux questions. Un son confirme les bonnes/mauvaises réponses. Ton meilleur score sera enregistré localement.');
+    });
+
+    startBtn.addEventListener('click',()=>{
+      startGame(state.level);
+    });
+
+    function startGame(level){
+      // assemble pool
+      let pool = [];
+      if(level==='random'){ pool = [...POOLS.beginner, ...POOLS.intermediate, ...POOLS.expert]; }
+      else pool = [...POOLS[level]];
+
+      // shuffle
+      pool = pool.sort(()=>Math.random()-0.5).slice(0,8);
+      state.pool=pool; state.index=0; state.score=0; state.total=pool.length; state.answered=false; state.level=level==='random'? 'Aléatoire' : level;
+
+      // UI
+      WELCOME.style.display='none'; GAME.style.display='block'; FINAL.style.display='none';
+      scoreEl.textContent='0'; currentLevelEl.textContent = capitalize(state.level);
+      totalEl.textContent=state.total; qNum.textContent='0'; updateProgress(); renderQuestion();
+    }
+
+    function capitalize(s){ if(!s) return s; return s.charAt(0).toUpperCase()+s.slice(1); }
+
+    function renderQuestion(){
+      const idx = state.index; const item = state.pool[idx];
+      qTxt.textContent = item.q; optsDiv.innerHTML=''; feedback.style.display='none'; nextBtn.style.display='none';
+      qNum.textContent = idx+1; totalEl.textContent = state.total;
+
+      item.opts.forEach((o,i)=>{
+        const b = document.createElement('div'); b.className='opt'; b.textContent=o; b.tabIndex=0;
+        b.onclick = ()=>select(i); b.onkeyup = (e)=>{ if(e.key==='Enter') select(i); };
+        optsDiv.appendChild(b);
+      });
+      updateProgress();
+    }
+
+    function select(i){ if(state.answered) return; state.answered=true; const item=state.pool[state.index];
+      const buttons = Array.from(document.querySelectorAll('.opt'));
+      buttons.forEach((btn,idx)=>{ btn.classList.add('disabled'); if(idx===item.a) btn.classList.add('correct'); if(idx===i && i!==item.a) btn.classList.add('incorrect'); });
+
+      if(i===item.a){ state.score++; scoreEl.textContent=state.score; feedback.className='feedback fb-correct'; feedback.textContent='Bonne réponse !'; playCorrect(); }
+      else{ feedback.className='feedback fb-wrong'; feedback.textContent=`Mauvaise réponse — la bonne réponse était : "${item.opts[item.a]}".`; playWrong(); }
+      feedback.style.display='block'; nextBtn.style.display='inline-block';
+    }
+
+    nextBtn.addEventListener('click',()=>{
+      state.index++;
+      state.answered=false;
+      if(state.index>=state.total) finishGame(); else renderQuestion();
+    });
+
+    quitBtn.addEventListener('click',()=>{ if(confirm('Quitter le quiz et retourner au menu ?')){ GAME.style.display='none'; WELCOME.style.display='block'; loadBests(); renderLeaderboard(); } });
+
+    function updateProgress(){ const pct = Math.round((state.index/state.total)*100)||0; bar.style.width = pct+'%'; }
+
+    function finishGame(){
+      GAME.style.display='none'; FINAL.style.display='block';
+      finalScore.textContent = state.score; finalTotal.textContent = state.total;
+      let title='Bravo !'; let msg='Tu as terminé le quiz.'; let emoji='🎉';
+      if(state.score>= Math.ceil(state.total*0.85)) { title='Incroyable — Expert !'; emoji='🏆'; }
+      else if(state.score>= Math.ceil(state.total*0.6)) { title='Bien joué !'; emoji='👏'; }
+      else { title='Continue — tu progresses !'; emoji='💪'; }
+      finalTitle.textContent=title; finalMsg.textContent=msg; finalEmoji.textContent=emoji;
+
+      // save bests if applicable
+      const lvlKey = (state.level||'beginner').toLowerCase();
+      if(['beginner','intermediate','expert'].includes(lvlKey)) saveBest(lvlKey,state.score);
+      saveToLeaderboard(state.level, state.score);
+      loadBests(); renderLeaderboard();
+    }
+
+    replayBtn.addEventListener('click',()=>{ startGame(state.level==='Aléatoire'? 'random' : state.level); });
+    toMenuBtn.addEventListener('click',()=>{ FINAL.style.display='none'; WELCOME.style.display='block'; loadBests(); renderLeaderboard(); });
+
+    // small helpers: allow keyboard navigation for options
+    document.addEventListener('keydown',(e)=>{
+      if(GAME.style.display==='block' && !state.answered){
+        const opts = document.querySelectorAll('.opt'); if(!opts.length) return;
+        if(e.key>='1' && e.key<='9'){ const idx = parseInt(e.key)-1; if(idx<opts.length) opts[idx].click(); }
+      }
+    });
+
+    // initial UI
+    loadBests(); renderLeaderboard();
+  </script></body>
+        </html>    .question-text{font-weight:800;font-size:1.05rem;margin-bottom:12px}
     .options{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
     .opt{background:#f8fafc;border-radius:10px;padding:10px;border:2px solid transparent;cursor:pointer;font-weight:700}
     .opt:hover{transform:translateY(-3px);transition:all .18s}
